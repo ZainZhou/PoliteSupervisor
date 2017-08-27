@@ -25,22 +25,24 @@ class IndexController extends BaseController {
             case '1':
                 $timestamp = time();
                 session('token', $timestamp);
-                session('state1', $time + ';' + $timestamp);
+                session('state1', $time . '|' . $timestamp);
                 break;
             case '2':
                 $timestamp = session('token');
-                session('state2', $time + ';' + $timestamp);
+                session('state2', $time . '|' . $timestamp);
                 break;
             case '3':
                 $openid = session('openid');
                 $timestamp = session('token');
-                session('state3', $time + ';' + $timestamp);
+                session('state3', $time . '|' . $timestamp);
                 $time1 = $this->getStateSession('state1');
+                $time1 = $time1[0];
                 $time2 = $this->getStateSession('state2');
+                $time2 = $time2[0];
                 $total = $time + $time1 + $time2;
                 $users = M('rank');
                 $user = $users->where(array('openid' => $openid))->find();
-                if ($user['total'] < $total || $user['total'] == '') {
+                if ($total < $user['total'] || $user['total'] == '') {
                     $data = array(
                         'state1' => $time1,
                         'state2' => $time2,
@@ -49,6 +51,25 @@ class IndexController extends BaseController {
                     );
                     $users->where(array('openid' => $openid))->save($data);
                 }
+                $map['total'] = array('GT', $total);
+                $rank = $users->where($map)->count();
+                $rank += 1;
+                if ($rank <= 50) {
+                    $list = $users->order('total desc')->field('nickname, avatar, total as time')->limit(50)->select();
+                    foreach ($list as $key => &$value) {
+                        if ($rank != '∞' && $rank <= 50 && $value['nickname'] == $user['nickname']) {
+                            $rank = $key + 1;
+                        }
+                    }
+                }
+                $this->ajaxReturn(array(
+                    'status' => 200,
+                    'info'   => '成功',
+                    'data'   => array(
+                        'rank' => $rank,
+                        'time' => $total
+                    ),
+                ));
                 break;
             default:
                 $this->ajaxReturn(array(
@@ -67,41 +88,51 @@ class IndexController extends BaseController {
         $users = M('rank');
         $openid = session('openid');
         $user = $users->where(array('openid' => $openid))->find();
-        $map['total'] = array('GT', $user['total']);
-        $rank = $users->where($map)->count();
-        $rank += 1;
-        $list = $users->order('total desc')->field('nickname, imgurl, score')->limit(10)->select();
-        if ($rank <= 50) {
-            $real = $users->order('score desc')->field('nickname, imgurl, score')->limit(50)->select();
+        if ($user['total'] == '') {
+            $rank = '∞';
+        } else {
+            $token = session('token');
+            $time1 = $this->getStateSession('state1');
+            $time2 = $this->getStateSession('state2');
+            $time3 = $this->getStateSession('state3');
+            if ($time1[1] != $token || $time2[1] != $token || $time3[1] != $token) {
+                $total =  $user['total'];
+            } else {
+                $total = $time1[0] + $time2[0] + $time3[0];
+            }
+            $map['total'] = array('GT', $total);
+            $rank = $users->where($map)->count();
+            $rank += 1;
         }
-        foreach ($real as $key => $value) {
-            if ($value['nickname'] == $user['nickname']) {
+        $list = $users->order('total desc')->field('nickname, avatar, total as time')->limit(50)->select();
+        foreach ($list as $key => &$value) {
+            $value['rank'] = $key+1;
+            if ($rank != '∞' && $rank <= 50 && $value['nickname'] == $user['nickname']) {
                 $rank = $key+1;
             }
-        }
-        if ($user['days'] == 0) {
-            $rank = '∞';
         }
         $this->ajaxReturn(array(
             'status' => 200,
             'data'   => array(
-                'list' => $list,
-                'rank' => $rank,
-                'nickname' => $user['nickname'],
-                'avatar' => $user['imgurl'],
-                'days' => $user['days'],
-                'groups' => $user['count']
+                'ranklist' => $list,
+                'me' => array(
+                    'rank' => $rank,
+                    'nickname' => $user['nickname'],
+                    'avatar' => $user['avatar'],
+                    'time' => $user['total']
+                ),
             )
         ));
     }
 
     private function getStateSession($name) {
         $s = session($name);
-        if ($s == null || length($s) == 0) {
+        if ($s == null || strlen($s) == 0) {
             return '';
         }
-        $data = explode(';', $s);
-        return $data[0];
+
+        $data = explode('|', $s);
+        return $data;
     }
 
     public function JSSDKSignature(){
