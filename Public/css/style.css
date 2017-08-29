@@ -118,3 +118,54 @@
   float: right;
   width: 47%;
 }
+#GamePage {
+  width: 100%;
+  background: url("../images/GameBack.jpg") no-repeat center;
+  background-size: 100% 100%;
+}
+#GamePage .recordContainer {
+  width: 82%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+#GamePage .recordContainer > div {
+  width: 48.13%;
+  height: 100%;
+  background: url("../images/recordBack.png") no-repeat center;
+  background-size: 100% 100%;
+  overflow: hidden;
+}
+#GamePage .recordContainer .logo {
+  width: 19%;
+  margin-left: 19%;
+  margin-top: 1.2%;
+  float: left;
+}
+#GamePage .recordContainer .WordNum {
+  float: left;
+}
+#GamePage .recordContainer .WordNum .WNum {
+  font-family: rui;
+  font-size: 18px;
+  color: #ffffff;
+  float: left;
+  margin-left: 11%;
+  margin-top: 2%;
+  text-shadow: 2px 1px 0 #779f1b;
+}
+#GamePage .recordContainer .Timer {
+  float: right;
+}
+#GamePage .recordContainer .Timer .TimerNum {
+  font-family: rui;
+  font-size: 18px;
+  color: #ffffff;
+  float: left;
+  margin-top: 2%;
+  text-shadow: 2px 1px 0 #779f1b;
+}
+#GamePage .wordContainer {
+  width: 100%;
+  background: url("../images/wordBack.png") no-repeat center;
+  background-size: 100% 100%;
+}

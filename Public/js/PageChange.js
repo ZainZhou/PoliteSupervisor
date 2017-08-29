@@ -41,4 +41,9 @@ $(function(){
         oMask.css('display','block');
         DeveloperList.css('display','block');
     });
+    startBtn.on('click',function(){
+        $.mobile.changePage('#GamePage',{
+            transition:'pop'
+        })
+    });
 });
