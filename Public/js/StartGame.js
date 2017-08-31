@@ -1,13 +1,6 @@
 /**
  * Created by Zain on 31/8/2017.
  */
-var selections = [
-    '富强','民主','文明','和谐',
-'自由','平等','公正','法治',
-'法治','法治','诚信','友善',
-'遵纪','守法','明礼','守信',
-'团结','勤俭','勤学','劳动'
-];
 function Timer(){
     this.msecond = 0;
     this.second = 0;
@@ -53,7 +46,6 @@ Timer.prototype = {
         }
     }
 };
-
 $(function(){
     var StartBtn = $('.StartBtn');
     var state = [['第一关',1],['第二关',3],['第三关',5]];
@@ -61,10 +53,13 @@ $(function(){
     var s = $('.sencond');
     var ms = $('.msecond');
     var timer = null;
+    var showTime = null;
     var aLi = $('.wordUl').find('li');
+    var Qlink = 'http://localhost/PoliteSupervisor/Home/Index/getQuestions';
     aLi.on('click',function(){
         $(this).css({'color':'#ff6767','background-image':'url("Public/images/selectedback.png")'});
         timer.clearTimer();
+        clearInterval(showTime);
     });
     StartBtn.on('click',function(){
         time = [];
@@ -74,12 +69,23 @@ $(function(){
         timer = new Timer();
         timer.setmTimer();
         timer.setTimer();
-        var showTime = setInterval(function(){
-            s.html(timer.getSecond());
-            ms.html(timer.getmSecond());
-        },10);
-        $.mobile.changePage('#GamePage',{
-            transition:'pop'
+        $.mobile.loading('show');
+        $.post(Qlink,stateIndex,function(data){
+            $.mobile.loading('hide');
+            if(data.status == 200){
+                for(var i = 0 ; i < aLi.length ; i++){
+                   aLi.eq(i).html(data.data[i].word);
+                }
+                $.mobile.changePage('#GamePage',{
+                    transition:'pop'
+                });
+                showTime = setInterval(function(){
+                    s.html(timer.getSecond());
+                    ms.html(timer.getmSecond());
+                },10);
+            }else {
+                console.log(data);
+            }
         })
     });
 });
