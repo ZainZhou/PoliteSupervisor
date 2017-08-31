@@ -57,9 +57,15 @@ $(function(){
     var aLi = $('.wordUl').find('li');
     var Qlink = 'http://localhost/PoliteSupervisor/Home/Index/getQuestions';
     aLi.on('click',function(){
-        $(this).css({'color':'#ff6767','background-image':'url("Public/images/selectedback.png")'});
+        var _this = $(this);
+        _this.css({'color':'#ff6767','background-image':'url("Public/images/selectedback.png")'});
         timer.clearTimer();
         clearInterval(showTime);
+        if(_this.attr('isRight') == 0){
+            alert('选择正确!')
+        }else {
+            alert('选择错误!')
+        }
     });
     StartBtn.on('click',function(){
         time = [];
@@ -75,6 +81,7 @@ $(function(){
             if(data.status == 200){
                 for(var i = 0 ; i < aLi.length ; i++){
                    aLi.eq(i).html(data.data[i].word);
+                    aLi.eq(i).attr('isRight',data.data[i].isRight);
                 }
                 $.mobile.changePage('#GamePage',{
                     transition:'pop'
