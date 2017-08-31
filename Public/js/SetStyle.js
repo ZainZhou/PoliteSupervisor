@@ -11,7 +11,5 @@ $(function(){
         if(i%3 == 2)continue;
         aLi.eq(i).css('margin-right','5.8%');
     }
-    aLi.on('click',function(){
-       $(this).css({'color':'#ff6767','background-image':'url("Public/images/selectedback.png")'});
-    });
+
 });
