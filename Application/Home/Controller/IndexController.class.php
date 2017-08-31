@@ -191,23 +191,20 @@ class IndexController extends BaseController {
         $good = $total - $bad;
         $good_arr_keys = array_rand($polite, $good+1);
         foreach ($good_arr_keys as $v) {
-            $good_arr[] = $polite[$v];
+            $good_arr[] = array('word' => $polite[$v], 'isRight' => '1');
         }
         $bad_arr_keys = array_rand($noPolite, $bad);
         if(count($bad_arr_keys) == 1){
             $bad_arr_keys = array($bad_arr_keys);
         }
         foreach ($bad_arr_keys as $v) {
-            $bad_arr[] = $noPolite[$v];
+            $bad_arr[] = array('word' => $noPolite[$v], 'isRight' => '0');
         }
-        $result = array_merge($good_arr, $good_arr);
+        $result = array_merge($good_arr, $bad_arr);
         shuffle($result);
         $this->ajaxReturn(array(
             'status' => 200,
-            'data'   => array(
-                'all' => $result,
-                'bad' => $bad_arr,
-            )
+            'data'   => $result
         ));
     }
 
