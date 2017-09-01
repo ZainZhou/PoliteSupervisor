@@ -11,6 +11,12 @@ class IndexController extends BaseController {
         $this->assign('appid', $this->appid);
         $this->display();
     }
+    public function ranklist(){
+        $signature = $this->JSSDKSignature();
+        $this->assign('signature', $signature);
+        $this->assign('appid', $this->appid);
+        $this->display();
+    }
 
     public function record() {
         $state = I('post.state', 0);
