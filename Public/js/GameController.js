@@ -55,8 +55,8 @@ $(function(){
     var timer = null;
     var showTime = null;
     var aLi = $('.wordUl').find('li');
-    var Tlink = 'http://localhost/PoliteSupervisor/Home/Index/record';
-    var Qlink = 'http://localhost/PoliteSupervisor/Home/Index/getQuestions';
+    var Tlink = tlink;
+    var Qlink = qlink;
     var wrongTip = $('.notRight');
     var rightNum = 0;
     var alertBox = $('.alertBox');
@@ -72,7 +72,8 @@ $(function(){
     var playAgain = $('.playAgain');
     var overBtn = $('.overBtn');
     playAgain.on('click',function(){
-        aLi.css({'color':'#f8883d','background-image':'url("Public/images/selector.png")'});
+        var url = 'url("'+public+'/images/selector.png")';
+        aLi.css({'color':'#f8883d','background-image':url});
         oMask.css('display','none');
         alertBox.css('display','none');
         AlertTitle.html('完成任务!');
@@ -83,7 +84,8 @@ $(function(){
     aLi.on('click',function(){
         var _this = $(this);
         if(_this.attr('isRight') == 0){
-            _this.css({'color':'#ff6767','background-image':'url("Public/images/selectedback.png")'});
+            var url = 'url("'+public+'/images/selectedback.png")';
+            _this.css({'color':'#ff6767','background-image':url});
             rightNum += 1;
         }else {
             wrongTip.animate({'opacity':1},500);
@@ -164,7 +166,9 @@ $(function(){
         })
     }
     nextBtn.on('click',function(){
-        aLi.css({'color':'#f8883d','background-image':'url("Public/images/selector.png")'});
+        var url = 'url("'+public+'/images/selector.png")';
+
+        aLi.css({'color':'#f8883d','background-image':url});
         oMask.css('display','none');
         alertBox.css('display','none');
         getQuestion()
