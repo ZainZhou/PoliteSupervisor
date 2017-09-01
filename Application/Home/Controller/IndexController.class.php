@@ -59,17 +59,17 @@ class IndexController extends BaseController {
                     );
                     $users->where(array('openid' => $openid))->save($data);
                 }
-                $map['total'] = array('GT', $total);
+                $map['total'] = array('LT', $total);
                 $rank = $users->where($map)->count();
                 $rank += 1;
-                if ($rank <= 50) {
-                    $list = $users->order('total desc')->field('nickname, avatar, total as time')->limit(50)->select();
-                    foreach ($list as $key => &$value) {
-                        if ($rank != '∞' && $rank <= 50 && $value['nickname'] == $user['nickname']) {
-                            $rank = $key + 1;
-                        }
-                    }
-                }
+//                if ($rank <= 50) {
+//                    $list = $users->order('total desc')->field('nickname, avatar, total as time')->limit(50)->select();
+//                    foreach ($list as $key => &$value) {
+//                        if ($rank != '∞' && $rank <= 50 && $value['nickname'] == $user['nickname']) {
+//                            $rank = $key + 1;
+//                        }
+//                    }
+//                }
                 $this->ajaxReturn(array(
                     'status' => 200,
                     'info'   => '成功',
@@ -117,6 +117,16 @@ class IndexController extends BaseController {
             $value['rank'] = $key+1;
             if ($rank != '∞' && $rank <= 50 && $value['nickname'] == $user['nickname']) {
                 $rank = $key+1;
+            }
+        }
+        $len = count($list);
+        if ( $len < 10) {
+            for ($i = 0; $i < 10 - $len; $i++) {
+                $list[] = array(
+                    'nickname' => '',
+                    'avatar' => '',
+                    'time' => '',
+                );
             }
         }
         return array(

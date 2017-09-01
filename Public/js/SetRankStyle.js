@@ -12,7 +12,8 @@ $(function(){
     playerName.css('line-height',$(window).width()*0.165+'px');
     for(var i = 0 ; i < aLi.length ; i++){
         if(i%2 != 0){
-            aAvatar.eq(i).css('background-image','url("../../Public/images/girl.png")');
+            var url = 'url("'+public+'/images/girl.png")';
+            aAvatar.eq(i).css('background-image', url);
             aLi.eq(i).css({'background-color':'#94d8ff','box-shadow':'inset 0 0 8px 5px #37abef'});
         }
     }

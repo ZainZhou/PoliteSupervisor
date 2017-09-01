@@ -17,7 +17,7 @@ $(function(){
     var imgCount = 0;
     for(i = 0; i < imgs.length ; i++){
         img  = new Image();
-        img.src= '../../Public/images/'+imgs[i];
+        img.src= public+'/images/'+imgs[i];
         img.onload = function(){
             imgCount += 1;
             if(imgCount == imgs.length){
