@@ -17,6 +17,116 @@
 .btn {
   cursor: pointer;
 }
+.alertBox {
+  background: url("../images/popbox.png") no-repeat center;
+  background-size: 100% 100%;
+  position: absolute;
+  width: 100%;
+  height: 55.8%;
+  z-index: 100;
+  top: 10%;
+  overflow: hidden;
+  display: none;
+}
+.alertBox .relativeBox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.alertBox .relativeBox .RankShowBox {
+  position: absolute;
+  top: 37%;
+  width: 59.7%;
+  left: 29.3%;
+  overflow: hidden;
+  display: none;
+}
+.alertBox .relativeBox .RankShowBox p {
+  font-size: 19px;
+  color: #f9883b;
+  text-shadow: none;
+  font-family: rui;
+  float: left;
+  margin-left: 9%;
+  margin-top: 3%;
+}
+.alertBox .relativeBox .RankShowBox p span {
+  font-size: 30px;
+  color: #fcbb3d;
+  text-shadow: 2px 2px 0 #dc8f21,4px 4px #f8ccb5;
+  font-weight: 800;
+}
+.alertBox .relativeBox .RankShowBox .alertBtnContainer {
+  width: 100%;
+  overflow: hidden;
+  float: left;
+  margin-top: 8%;
+}
+.alertBox .relativeBox .RankShowBox .alertBtnContainer .playAgain {
+  float: left;
+  width: 46%;
+}
+.alertBox .relativeBox .RankShowBox .alertBtnContainer .overBtn {
+  float: right;
+  width: 46%;
+}
+.alertBox .relativeBox .TimeShowBox {
+  position: absolute;
+  left: 40%;
+  top: 38%;
+  font-family: rui;
+}
+.alertBox .relativeBox .TimeShowBox .nextBtn {
+  display: block;
+  width: 55%;
+  cursor: pointer;
+}
+.alertBox .relativeBox .TimeShowBox h3 {
+  font-size: 22px;
+  color: #f9883b;
+  text-shadow: none;
+}
+.alertBox .relativeBox .TimeShowBox p {
+  color: #f9883b;
+  font-size: 18px;
+}
+.alertBox .relativeBox .TimeShowBox p .stateTime {
+  font-size: 38px;
+  color: #fcbb3d;
+  text-shadow: 2px 2px 0 #dc8f21,4px 4px #f8ccb5;
+  font-weight: 800;
+}
+.alertBox .AlertTitle {
+  font-family: rui;
+  font-size: 30px;
+  color: #ffffff;
+  text-shadow: 2px 2px 0 #e14a31;
+  transform: rotate(-10deg);
+  float: left;
+  margin-top: 6.5%;
+  margin-left: 38%;
+  transform-origin: 50% 50%;
+}
+.notRight {
+  position: absolute;
+  z-index: 100;
+  width: 23%;
+  left: 38.5%;
+  top: 0;
+  opacity: 0;
+}
+.notRight .depressed {
+  width: 100%;
+  display: block;
+  margin: 5px auto;
+}
+.notRight p {
+  text-align: center;
+  font-family: rui;
+  font-size: 15px;
+  color: #333;
+  text-shadow: 1px 1px 1px #fff;
+}
 .mask {
   position: absolute;
   width: 100%;
@@ -110,7 +220,6 @@
 }
 #StartPage .BtnContainer .GetBtn {
   width: 47%;
-  display: block;
   margin: 0 auto;
   display: none;
 }
@@ -201,4 +310,41 @@
   font-size: 21px;
   text-shadow: none;
   margin-bottom: 3.33%;
+}
+@media screen and (max-width: 330px) {
+  .BtnContainer {
+    width: 68.3% !important;
+    margin: 3% auto !important;
+  }
+  #StartPage .GamelogoContainer .GameLogo {
+    width: 97%;
+    margin: 0 auto;
+  }
+  #StartPage .GamelogoContainer .slogan {
+    font-size: 15px;
+  }
+  #StartPage .InstructionContainer .instruction {
+    width: 93.5%;
+    display: block;
+    margin: 0 auto;
+  }
+  #StartPage .DeveloperBtn {
+    margin-top: 0;
+  }
+  #StartPage .DeveloperList .developerTitle {
+    margin-bottom: 5%;
+  }
+  #GamePage .recordContainer .Timer .TimerNum {
+    font-size: 17px !important;
+  }
+  #GamePage .recordContainer .logo {
+    margin-left: 18%;
+  }
+  #GamePage .recordContainer .WordNum .WNum {
+    font-size: 17px;
+  }
+  #GamePage .wordContainer .Checkpoint {
+    margin-top: 6.8%;
+    margin-left: 7%;
+  }
 }
