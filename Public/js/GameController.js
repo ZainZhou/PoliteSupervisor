@@ -49,7 +49,7 @@ Timer.prototype = {
 $(function(){
     var StartBtn = $('.StartBtn');
     var state = [['第一关',1],['第二关',3],['第三关',5]];
-    var timesum,time,stateIndex;
+    var stateIndex;
     var s = $('.sencond');
     var ms = $('.msecond');
     var timer = null;
@@ -67,6 +67,21 @@ $(function(){
     var AlertTitle = $('.AlertTitle');
     var TimeShowBox = $('.TimeShowBox');
     var RankShowBox = $('.RankShowBox');
+    var rank = $('.rank');
+    var timesum = $('.timesum');
+    var playAgain = $('.playAgain');
+    var overBtn = $('.overBtn');
+    playAgain.on('click',function(){
+        aLi.css({'color':'#f8883d','background-image':'url("Public/images/selector.png")'});
+        oMask.css('display','none');
+        alertBox.css('display','none');
+        $.mobile.changePage('#StartPage',{
+           transition:'flow'
+        });
+    });
+    overBtn.on('click',function(){
+        window.close();
+    });
     aLi.on('click',function(){
         var _this = $(this);
         if(_this.attr('isRight') == 0){
@@ -85,7 +100,7 @@ $(function(){
             if(stateIndex < 3){
                 $.mobile.loading('show');
                 var _data = {};
-                _data.state = (stateIndex - 1);
+                _data.state = (stateIndex);
                 _data.time = parseInt(timer.getSecond())+(parseInt(timer.getmSecond()))/100;
                 $.post(Tlink,_data,function(data){
                     $.mobile.loading('hide');
@@ -102,22 +117,24 @@ $(function(){
             }else{
                 $.mobile.loading('show');
                 var _data = {};
-                _data.state = (stateIndex - 1);
+                _data.state = (stateIndex);
                 _data.time = parseInt(timer.getSecond())+(parseInt(timer.getmSecond()))/100;
                 $.post(Tlink,_data,function(data){
                     $.mobile.loading('hide');
                     if(data.status == 200){
-                        console.log(data);
+                        rank.html(data.data.rank);
+                        timesum.html(data.data.time);
+                        AlertTitle.html('胜利通关!');
+                        oMask.css('display','block');
+                        TimeShowBox.css('display','none');
+                        RankShowBox.css('display','block');
+                        alertBox.css('display','block');
+
+                        rightNum = 0;
                     }else{
                         alert(data.info);
                     }
                 });
-                AlertTitle.html('胜利通关!');
-                oMask.css('display','block');
-                TimeShowBox.css('display','none');
-                RankShowBox.css('display','block');
-                alertBox.css('display','block');
-                rightNum = 0;
             }
         }
     });
@@ -158,10 +175,8 @@ $(function(){
         getQuestion()
     });
     StartBtn.on('click',function(){
-        timesum = 0;
-        time = [];
         stateIndex = 0;
-        getQuestion()
+        getQuestion();
         TimeShowBox.css('display','block');
         RankShowBox.css('display','none');
     });
