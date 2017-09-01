@@ -16,88 +16,39 @@
         <img src="__PUBLIC__/images/VoiceofYoung.png" alt="" class="VoiceofYoung">
         <div class="RanklistHeader">
             <h2>排行榜</h2>
-            <div class="AvatarBox">
+            <div class="AvatarBox" style="background-image: url({$data['me']['avatar']})">
 
             </div>
             <p class="username">
-                隆妹纸
+                {$data['me']['nickname']}
             </p>
             <p class="rankNum">
-                第 <span class="rank">32</span> 名
+                第 <span class="rank">{$data['me']['rank']}</span> 名
             </p>
-            <a href="##"><img src="__PUBLIC__/images/playAgain.png" alt="" class="playAgain"></a>
+            <a href="{:U('Index/index')}"><img src="__PUBLIC__/images/playAgain.png" alt="" class="playAgain"></a>
         </div>
         <ul class="RanklistUl">
-            <li style="margin-top: 8px">
-                <div class="avatar">
+            <foreach name="data.ranklist" item="vo" key="k" >
+                <if condition="($k eq 0)">
+                    <li style="margin-top: 8px">
+                <else />
+                    <li>
+                </if>
+                    <div class="avatar" style="background-image: url({$vo.avatar})">
 
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <img src="__PUBLIC__/images/gold.png" alt="" class="medal">
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <img src="__PUBLIC__/images/silver.png" alt="" class="medal">
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <img src="__PUBLIC__/images/copper.png" alt="" class="medal">
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">4</span>
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">5</span>
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">6</span>
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">7</span>
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">8</span>
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">9</span>
-            </li>
-            <li>
-                <div class="avatar">
-
-                </div>
-                <p class="playerName">隆妹纸</p>
-                <span class="rank">10</span>
-            </li>
+                    </div>
+                    <p class="playerName">{$vo.nickname}</p>
+                    <if condition="($k eq 0)">
+                        <img src="__PUBLIC__/images/gold.png" alt="" class="medal">
+                        <elseif condition="($k eq 1)"/>
+                        <img src="__PUBLIC__/images/silver.png" alt="" class="medal">
+                        <elseif condition="($k eq 2)"/>
+                        <img src="__PUBLIC__/images/copper.png" alt="" class="medal">
+                        <else />
+                        <span class="rank">{$k+1}</span>
+                    </if>
+                </li>
+            </foreach>
         </ul>
         <p class="copyright">©红岩网校工作站</p>
     </div>

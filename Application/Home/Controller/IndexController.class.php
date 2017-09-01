@@ -12,9 +12,11 @@ class IndexController extends BaseController {
         $this->display();
     }
     public function ranklist(){
+        $data = $this->rank();
         $signature = $this->JSSDKSignature();
         $this->assign('signature', $signature);
         $this->assign('appid', $this->appid);
+        $this->assign('data', $data);
         $this->display();
     }
 
@@ -117,18 +119,15 @@ class IndexController extends BaseController {
                 $rank = $key+1;
             }
         }
-        $this->ajaxReturn(array(
-            'status' => 200,
-            'data'   => array(
-                'ranklist' => $list,
-                'me' => array(
-                    'rank' => $rank,
-                    'nickname' => $user['nickname'],
-                    'avatar' => $user['avatar'],
-                    'time' => $user['total']
-                ),
-            )
-        ));
+        return array(
+            'ranklist' => $list,
+            'me' => array(
+                'rank' => $rank,
+                'nickname' => $user['nickname'],
+                'avatar' => $user['avatar'],
+                'time' => $user['total']
+            ),
+        );
     }
 
     public function getQuestions() {
