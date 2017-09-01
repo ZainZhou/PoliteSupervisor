@@ -75,6 +75,7 @@ $(function(){
         aLi.css({'color':'#f8883d','background-image':'url("Public/images/selector.png")'});
         oMask.css('display','none');
         alertBox.css('display','none');
+        AlertTitle.html('完成任务!');
         $.mobile.changePage('#StartPage',{
            transition:'flow'
         });
@@ -108,7 +109,6 @@ $(function(){
                         stateTime.html(timer.getSecond() + '.' + timer.getmSecond());
                         oMask.css('display','block');
                         alertBox.css('display','block');
-                        console.log(data);
                     }else{
                         alert(data.info);
                     }
@@ -145,13 +145,11 @@ $(function(){
         timer.setTimer();
         Checkpoint.html(state[stateIndex][0]);
         $.mobile.loading('show');
-        console.log(stateIndex);
         var _data = {};
         _data.state = stateIndex;
         $.post(Qlink,_data,function(data){
             $.mobile.loading('hide');
             if(data.status == 200){
-                console.log(data);
                 for(var i = 0 ; i < aLi.length ; i++){
                     aLi.eq(i).html(data.data[i].word);
                     aLi.eq(i).attr('isRight',data.data[i].isRight);
