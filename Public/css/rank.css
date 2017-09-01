@@ -13,6 +13,7 @@
   background: url("../images/background.jpg") center;
   background-size: 100%;
   overflow: hidden;
+  opacity: 0;
 }
 .container .copyright {
   text-align: center;
@@ -133,4 +134,12 @@
   float: left;
   width: 26.86%;
   margin-left: 36.57%;
+}
+@media screen and (max-width: 330px) {
+  .container .RanklistUl {
+    margin-top: -38px;
+  }
+  .container .RanklistUl li .playerName {
+    font-size: 13px;
+  }
 }
