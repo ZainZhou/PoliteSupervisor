@@ -189,7 +189,7 @@ class IndexController extends BaseController {
             '自 信','忠 诚','开 朗','智 慧',
             '恭 敬','仁 爱','儒 雅','知 耻');
         $good = $total - $bad;
-        $good_arr_keys = array_rand($polite, $good+1);
+        $good_arr_keys = array_rand($polite, $good);
         foreach ($good_arr_keys as $v) {
             $good_arr[] = array('word' => $polite[$v], 'isRight' => '1');
         }
