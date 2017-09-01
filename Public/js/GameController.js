@@ -80,9 +80,6 @@ $(function(){
            transition:'flow'
         });
     });
-    overBtn.on('click',function(){
-        window.close();
-    });
     aLi.on('click',function(){
         var _this = $(this);
         if(_this.attr('isRight') == 0){
