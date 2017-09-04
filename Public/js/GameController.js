@@ -48,7 +48,7 @@ Timer.prototype = {
 };
 $(function(){
     var StartBtn = $('.StartBtn');
-    var state = [['第一关',1],['第二关',3],['第三关',5]];
+    var state = [['第一关',1],['第二关',3],['第三关',5],['第四关',7],['第五关',9]];
     var stateIndex;
     var s = $('.sencond');
     var ms = $('.msecond');
@@ -97,7 +97,7 @@ $(function(){
             timer.clearTimer();
             clearInterval(showTime);
             stateIndex += 1;
-            if(stateIndex < 3){
+            if(stateIndex < 5){
                 $.mobile.loading('show');
                 var _data = {};
                 _data.state = (stateIndex);
