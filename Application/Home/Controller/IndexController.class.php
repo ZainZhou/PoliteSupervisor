@@ -40,26 +40,32 @@ class IndexController extends BaseController {
                 session('state2', $time . '|' . $timestamp);
                 break;
             case '3':
-                $openid = session('openid');
                 $timestamp = session('token');
                 session('state3', $time . '|' . $timestamp);
-                $time1 = $this->getStateSession('state1');
-                $time1 = $time1[0];
-                $time2 = $this->getStateSession('state2');
-                $time2 = $time2[0];
-                $total = $time + $time1 + $time2;
+                break;
+            case '4':
+                $timestamp = session('token');
+                session('state4', $time . '|' . $timestamp);
+                break;
+            case '5':
+                $openid = session('openid');
+                $timestamp = session('token');
+                session('state5', $time . '|' . $timestamp);
+                $total = 0;
+                for ($i = 1; $i < 6; $i++){
+                    $tmptime = $this->getStateSession('state'.$i);
+                    $total += $tmptime[0];
+                }
                 $users = M('rank');
                 $user = $users->where(array('openid' => $openid))->find();
                 if ($total < $user['total'] || $user['total'] == '') {
                     $data = array(
-                        'state1' => $time1,
-                        'state2' => $time2,
-                        'state3' => $time,
                         'total'  => $total,
                     );
                     $users->where(array('openid' => $openid))->save($data);
                 }
                 $map['total'] = array('LT', $total);
+                $map['openid'] = array('NEQ', $openid);
                 $rank = $users->where($map)->count();
                 $rank += 1;
 //                if ($rank <= 50) {
@@ -153,8 +159,14 @@ class IndexController extends BaseController {
             case '2':
                 $bad = 5;
                 break;
+            case '3':
+                $bad = 7;
+                break;
+            case '4':
+                $bad = 9;
+                break;
             default:
-                $bad = 5;
+                $bad = 9;
                 break;
         }
         $noPolite = array('浪 费','失 信','欺 诈','黄 毒',
