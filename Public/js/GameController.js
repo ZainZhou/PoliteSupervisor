@@ -86,11 +86,12 @@ $(function(){
     aLi.on('click',function(){
         var _this = $(this);
         if(_this.attr('isRight') == 0){
+            _this.attr('isRight',2);
             var url = 'url("'+public+'/images/selectedback.png")';
             _this.css({'color':'#ff6767','background-image':url});
             rightNum += 1;
             CompleteNumber.html(rightNum);
-        }else {
+        }else if(_this.attr('isRight') == 1){
             wrongTip.animate({'opacity':1},500);
             setTimeout(function(){
                 wrongTip.animate({'opacity':0},500);
