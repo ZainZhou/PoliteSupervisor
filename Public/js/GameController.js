@@ -71,6 +71,8 @@ $(function(){
     var timesum = $('.timesum');
     var playAgain = $('.playAgain');
     var overBtn = $('.overBtn');
+    var CompleteNumber = $('.now');
+    var TotalNumber = $('.all');
     playAgain.on('click',function(){
         var url = 'url("'+public+'/images/selector.png")';
         aLi.css({'color':'#f8883d','background-image':url});
@@ -87,6 +89,7 @@ $(function(){
             var url = 'url("'+public+'/images/selectedback.png")';
             _this.css({'color':'#ff6767','background-image':url});
             rightNum += 1;
+            CompleteNumber.html(rightNum);
         }else {
             wrongTip.animate({'opacity':1},500);
             setTimeout(function(){
@@ -128,7 +131,6 @@ $(function(){
                         TimeShowBox.css('display','none');
                         RankShowBox.css('display','block');
                         alertBox.css('display','block');
-
                         rightNum = 0;
                     }else{
                         alert(data.info);
@@ -153,6 +155,8 @@ $(function(){
                     aLi.eq(i).html(data.data[i].word);
                     aLi.eq(i).attr('isRight',data.data[i].isRight);
                 }
+                TotalNumber.html(state[stateIndex][1]);
+                CompleteNumber.html(rightNum);
                 $.mobile.changePage('#GamePage',{
                     transition:'pop'
                 });
