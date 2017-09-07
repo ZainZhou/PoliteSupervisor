@@ -25,7 +25,8 @@
             <p class="rankNum">
                 第 <span class="rank">{$data['me']['rank']}</span> 名
             </p>
-            <a href="{:U('Index/index')}"><img src="__PUBLIC__/images/playAgain.png" alt="" class="playAgain"></a>
+            <!--{:U('Index/index')}-->
+            <a href="/PoliteSupervisor/index.php/Home/Index/ranklist"><img src="__PUBLIC__/images/playAgain.png" alt="" class="playAgain"></a>
         </div>
         <ul class="RanklistUl">
             <foreach name="data.ranklist" item="vo" key="k" >
