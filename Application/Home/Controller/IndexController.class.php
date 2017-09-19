@@ -118,7 +118,7 @@ class IndexController extends BaseController {
             $rank = $users->where($map)->count();
             $rank += 1;
         }
-        $list = $users->order('total desc')->field('nickname, avatar, total as time')->limit(50)->select();
+        $list = $users->order('total asc')->field('nickname, avatar, total as time')->limit(50)->select();
         foreach ($list as $key => &$value) {
             $value['rank'] = $key+1;
             if ($rank != '∞' && $rank <= 50 && $value['nickname'] == $user['nickname']) {
